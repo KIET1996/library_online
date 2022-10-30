@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:library_online/constants/theme_custom.dart';
+import 'package:library_online/history/screens/histories_page.dart';
+import 'package:library_online/home/home_page.dart';
+import 'package:library_online/order/screens/order_page.dart';
 
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({
     Key? key,
+    required this.numberPage
   }) : super(key: key);
+  final int numberPage;
+
   @override
   State<DrawerWidget> createState() => _DrawerWidgetState();
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,9 +44,24 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 20,),
-                buildUnits("ĐƠN SÁCH", null, true),
-                buildUnits("LỊCH SỬ GIAO HÀNG", null, false),
-                buildUnits("ĐĂNG XUẤT", const Icon(Icons.logout), false),
+                InkWell(
+                    onTap: (){
+                      Get.to(()=>const OrderPage());
+                    },
+                    child: buildUnits("ĐƠN SÁCH", null, widget.numberPage == 0 ? true : false)
+                ),
+                InkWell(
+                    onTap: (){
+                      Get.to(()=>const HistoryPage());
+                    },
+                    child: buildUnits("LỊCH SỬ GIAO HÀNG", null, widget.numberPage == 1 ? true : false)
+                ),
+                InkWell(
+                  onTap: (){
+                    Get.to(()=>const HomePage());
+                  },
+                  child: buildUnits("ĐĂNG XUẤT", const Icon(Icons.logout), false)
+                ),
               ],
             ),
           ),

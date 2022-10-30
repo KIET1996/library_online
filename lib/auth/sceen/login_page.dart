@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_online/constants/theme_custom.dart';
-import 'package:library_online/order/screen/order_page.dart';
+import 'package:library_online/order/screens/order_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
