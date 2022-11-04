@@ -23,19 +23,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       backgroundColor: const Color(0xFFCEB8B8),
       child: Scaffold(
         appBar: AppBar(
+          leading: const Icon(Icons.account_circle_outlined, color: Colors.black, size: 30,),
           title: const Text(
-            "THƯ VIỆN ONLINE",
+            "Phạm Thị Phụng",
             style: TextStyle(
               color: Colors.black
             ),
           ),
+          centerTitle: true,
           automaticallyImplyLeading: false,
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 10.0),
-              child: Icon(Icons.menu, size: 30, color: Colors.black,),
-            ),
-          ],
         ),
         body: SafeArea(
           child: Padding(

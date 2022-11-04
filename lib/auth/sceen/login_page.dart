@@ -33,41 +33,45 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 90,
+                      width: 90,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/logo.png"),
+                      ),
+                    ),
+                    const SizedBox(height: 10,),
+
                     Text(
-                      'Đăng nhập'.tr.toUpperCase(),
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Get.theme.colorScheme.primaryColor,
+                      'Thư viện online'.tr.toUpperCase(),
+                      style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                           height: 1.4
                       ),
                     ),
+                    const SizedBox(height: 40,),
+                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Tài khoản:",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13
-                          ),
-                        ),
-                        const SizedBox(width: 10,),
                         Expanded(
                           child: TextFormField(
                             controller: usernameController,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            decoration: const InputDecoration(
+                              hintText: "Tài khoản",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                   borderSide: BorderSide.none,
                                 ),
-                              enabledBorder: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                   borderSide: BorderSide.none,
                                 ),
-                              contentPadding: const EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                              contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
                               filled: true,
-                              fillColor: Get.theme.colorScheme.thirdColor
+                              fillColor: Color(0xFFF6F6F6),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -83,30 +87,23 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Mật khẩu:",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13
-                          ),
-                        ),
-                        const SizedBox(width: 10,),
                         Expanded(
                           child: TextFormField(
                             controller: passwordController,
                             obscureText: _obscureText,
                             decoration: InputDecoration(
+                                hintText: "Mật khẩu",
                                 border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                   borderSide: BorderSide.none,
                                 ),
                                 enabledBorder: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                   borderSide: BorderSide.none,
                                 ),
                                 contentPadding: const EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
                                 filled: true,
-                                fillColor: Get.theme.colorScheme.thirdColor,
+                                fillColor: const Color(0xFFF6F6F6),
                                 suffixIcon: InkWell(
                                     onTap: (){
                                       setState(() {
@@ -128,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
+                    
                     Padding(
                       padding:
                       const EdgeInsets.only(top: 10, left: 20, right: 20),
@@ -143,40 +141,38 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: ()async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  isMessage = false;
-                                });
+                        InkWell(
+                          onTap: ()async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                isMessage = false;
+                              });
 
-                                bool status = true;
-                                await Future.delayed(const Duration(seconds: 2),);
-                                if(status){
-                                  Get.to(()=>const OrderPage());
-                                }
-                                // else{
-                                //   // setState(() {
-                                //   //   isMessage = true;
-                                //   // });
-                                // }
+                              bool status = true;
+                              await Future.delayed(const Duration(seconds: 2),);
+                              if(status){
+                                Get.to(()=>const OrderPage());
                               }
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                              decoration: BoxDecoration(
-                                  color: Get.theme.colorScheme.thirdColor,
-                                  borderRadius: BorderRadius.circular(50)
-                              ),
-                              child: Text(
-                                "Đăng nhập".toUpperCase(),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18
-                                ),
+                              // else{
+                              //   // setState(() {
+                              //   //   isMessage = true;
+                              //   // });
+                              // }
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                            decoration: BoxDecoration(
+                                color:  const Color(0xFFF6F6F6),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Text(
+                              "Đăng nhập".toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18
                               ),
                             ),
                           ),

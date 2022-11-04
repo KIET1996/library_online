@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                       decoration: BoxDecoration(
                         color: Get.theme.colorScheme.primaryColor.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                       constraints: const BoxConstraints(
                         minHeight: 40
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                           "Đăng nhập",
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold
                           ),
                         ),

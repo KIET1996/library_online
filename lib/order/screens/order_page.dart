@@ -28,25 +28,33 @@ class _OrderPageState extends State<OrderPage> {
       drawerEnableOpenDragGesture: false,
       backgroundColor: Get.theme.colorScheme.secondaryColor,
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: (){
-              _scaffoldKey.currentState?.openDrawer();
-            },
-            icon: Icon(Icons.menu, size: 30, color: Colors.black,)
+        leading: Container(
+          constraints: const BoxConstraints(maxHeight: 25, maxWidth: 25),
+          padding: const EdgeInsets.all(8),
+          child: const CircleAvatar(
+            backgroundImage: AssetImage("assets/images/logo.png"),
+          ),
         ),
+        title: Text(
+          "THƯ VIỆN ONLINE".toUpperCase(),
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        centerTitle: true,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  "Phạm Thị Phụng",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold
-                  ),
+              children: [
+                IconButton(
+                  onPressed: (){
+                    _scaffoldKey.currentState?.openDrawer();
+                  },
+                  icon: const Icon(Icons.menu, size: 30, color: Colors.black,)
                 ),
               ],
             ),

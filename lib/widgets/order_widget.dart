@@ -23,6 +23,20 @@ class OrderWidget extends StatelessWidget {
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: const [
+                  Text(
+                    "Moi",
+                     style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 18
+                  ),
+                  ),
+                ]
+              ),
+            ),
             ExpansionTile(
               title: const Text(
                 '29/10/2022: Số 1C, Trần Hoàng Na,  Hưng Lợi, Ninh Kiều, Cần thơ',
@@ -77,11 +91,10 @@ class OrderWidget extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.all(8),
                       child: Row(
-                        children: [
-                          const Icon(Icons.clear, color: Colors.red,),
-                          const SizedBox(width: 5,),
-                          isSuccess
-                              ? const Text(
+                        children: const [
+                          Icon(Icons.clear, color: Colors.red,),
+                          SizedBox(width: 5,),
+                          Text(
                             "Từ chối",
                             style: TextStyle(
                               fontSize: 16,
@@ -89,14 +102,8 @@ class OrderWidget extends StatelessWidget {
                               color: Colors.black,
                             ),
                           )
-                              : const Text(
-                            "Thất bại",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black
-                            ),
-                          ),
+
+                          
                         ],
                       )
                   ),
@@ -104,26 +111,18 @@ class OrderWidget extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     child: Row(
-                      children: [
-                        const Icon(Icons.check, color: Colors.green,),
-                        const SizedBox(width: 5,),
-                        isSuccess
-                            ? const Text(
-                          "Nhận",
+                      children: const [
+                        Icon(Icons.check, color: Colors.green,),
+                        SizedBox(width: 5,),
+                        Text(
+                          "Xác nhận",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
                             color: Colors.black,
                           ),
                         )
-                            : const Text(
-                          "Hoàn thành",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.black
-                          ),
-                        ),
+                
                       ],
                     )
                   ),
