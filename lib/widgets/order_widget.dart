@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:library_online/constants/theme_custom.dart';
+import 'package:library_online/order/model/item_model.dart';
 
 class OrderWidget extends StatelessWidget {
   const OrderWidget({
     Key? key,
-    required this.isSuccess,
+    required this.isSuccess, required this.itemOrder,
   }) : super(key: key);
 
   final bool isSuccess;
+  final ItemModel itemOrder; 
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +53,17 @@ class OrderWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Row(
-                    children: const [
-                      Text("Châu Nhựt Minh"),
+                    children:  [
+                      Text(itemOrder.dgTen),
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Row(
-                    children: const [
-                      Text("SĐT:"),
-                      Text("0123456789:"),
+                    children: [
+                      const Text("SĐT:"),
+                      Text(itemOrder.dgSdt),
                     ],
                   ),
                 ),
@@ -102,8 +104,6 @@ class OrderWidget extends StatelessWidget {
                               color: Colors.black,
                             ),
                           )
-
-                          
                         ],
                       )
                   ),

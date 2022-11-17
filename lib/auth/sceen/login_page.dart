@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_online/auth/repository/login_controller.dart';
 import 'package:library_online/constants/theme_custom.dart';
 import 'package:library_online/order/screens/order_page.dart';
 
@@ -12,6 +13,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  LoginController loginController = LoginController();
+
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool _obscureText = true;
@@ -52,7 +55,18 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 40,),
-                    
+                    Padding(
+                      padding:
+                      const EdgeInsets.only(top: 10, left: 20, right: 20),
+                      child: Text(
+                          isMessage ? "Đăng nhập không thành công. Bạn đã sai mật khẩu hoặc tài khoản" : "",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 13,
+                          )
+                      ),
+                    ),
+                    const SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -125,19 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                    
-                    Padding(
-                      padding:
-                      const EdgeInsets.only(top: 10, left: 20, right: 20),
-                      child: Text(
-                          isMessage ? "Đăng nhập không thành công. Bạn đã sai mật khẩu hoặc tài khoản" : "",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Get.theme.colorScheme.thirdColor,
-                            fontSize: 13,
-                          )
-                      ),
-                    ),
+                    const SizedBox(height: 20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -147,16 +149,15 @@ class _LoginPageState extends State<LoginPage> {
                               setState(() {
                                 isMessage = false;
                               });
-
-                              bool status = true;
-                              await Future.delayed(const Duration(seconds: 2),);
-                              if(status){
-                                Get.to(()=>const OrderPage());
-                              }
+                              Get.to(()=>const OrderPage());
+                              // bool status = await  loginController.loginUser(username: usernameController.text, password: passwordController.text);
+                              // if(status){
+                              //   Get.to(()=>const OrderPage());
+                              // }
                               // else{
-                              //   // setState(() {
-                              //   //   isMessage = true;
-                              //   // });
+                              //   setState(() {
+                              //     isMessage = true;
+                              //   });
                               // }
                             }
                           },

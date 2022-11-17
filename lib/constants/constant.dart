@@ -5,3 +5,7 @@ class AppConstants extends GetxController {
   var pageSize = 20.obs;
 
 }
+
+class ApiPath {
+  static const String API_BASE = 'http://localhost:8000/api/';
+}
