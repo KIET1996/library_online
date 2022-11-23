@@ -61,4 +61,31 @@ class OrderController extends GetxController {
       return false;
     }
   }
+
+  tuChoiDon (String id, String message) async {
+    try{
+      var request = http.Request('PUT', Uri.parse(ApiPath.API_BASE + 'xacnhan/$id'));
+      http.StreamedResponse response = await request.send();
+      print("Xac nhan don dat status : ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var responeData = await response.stream.bytesToString();
+        var data = await jsonDecode(responeData);
+        if(data["success"]){
+          return true;
+        } else {
+          return false;
+        }
+      }
+      else {
+        if (kDebugMode) {
+          print(response.reasonPhrase);
+        }
+        return false;
+      }
+    } catch(e){
+      return false;
+    }
+  }
+
 }
