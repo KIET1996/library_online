@@ -149,16 +149,16 @@ class _LoginPageState extends State<LoginPage> {
                               setState(() {
                                 isMessage = false;
                               });
-                              Get.to(()=>const OrderPage());
-                              // bool status = await  loginController.loginUser(username: usernameController.text, password: passwordController.text);
-                              // if(status){
-                              //   Get.to(()=>const OrderPage());
-                              // }
-                              // else{
-                              //   setState(() {
-                              //     isMessage = true;
-                              //   });
-                              // }
+                              // Get.to(()=>const OrderPage());
+                              bool status = await  loginController.loginUser(username: usernameController.text, password: passwordController.text);
+                              if(status){
+                                Get.to(()=>const OrderPage());
+                              }
+                              else{
+                                setState(() {
+                                  isMessage = true;
+                                });
+                              }
                             }
                           },
                           child: Container(

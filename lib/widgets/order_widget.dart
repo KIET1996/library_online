@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:library_online/constants/theme_custom.dart';
 import 'package:library_online/order/model/item_model.dart';
+import 'package:library_online/order/repositories/order_controller.dart';
 
-class OrderWidget extends StatelessWidget {
+class OrderWidget extends StatefulWidget {
   const OrderWidget({
     Key? key,
     required this.isSuccess, required this.itemOrder,
@@ -11,6 +13,25 @@ class OrderWidget extends StatelessWidget {
 
   final bool isSuccess;
   final ItemModel itemOrder; 
+
+  @override
+  State<OrderWidget> createState() => _OrderWidgetState();
+}
+
+class _OrderWidgetState extends State<OrderWidget> {
+  OrderController orderController = OrderController();
+  String strDate = '';
+  String dsSach = '';
+
+  @override
+  void initState() {
+    strDate = DateFormat("dd/MM/yyyy hh:mm").format(widget.itemOrder.ngayMuon);
+    for (var x in widget.itemOrder.sach){
+      dsSach = dsSach + x + ",";
+    }
+    print("==========> ${dsSach}");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +49,10 @@ class OrderWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
-                children: const [
+                children: [
                   Text(
-                    "Moi",
-                     style: TextStyle(
+                    widget.itemOrder.tinhTrang,
+                     style: const TextStyle(
                       color: Colors.red,
                       fontSize: 18
                   ),
@@ -40,9 +61,9 @@ class OrderWidget extends StatelessWidget {
               ),
             ),
             ExpansionTile(
-              title: const Text(
-                '29/10/2022: Số 1C, Trần Hoàng Na,  Hưng Lợi, Ninh Kiều, Cần thơ',
-                style: TextStyle(
+              title: Text(
+                strDate + ": " + widget.itemOrder.diaChi,
+                style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18
                 ),
@@ -54,7 +75,7 @@ class OrderWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Row(
                     children:  [
-                      Text(itemOrder.dgTen),
+                      Text(widget.itemOrder.docGia),
                     ],
                   ),
                 ),
@@ -62,26 +83,26 @@ class OrderWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Row(
                     children: [
-                      const Text("SĐT:"),
-                      Text(itemOrder.dgSdt),
+                      const Text("SĐT: "),
+                      Text(widget.itemOrder.sDt),
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Row(
-                    children: const [
-                      Text("Sách mượn:"),
-                      Text("Những con chim hót trong bụi mận gai:"),
+                    children: [
+                      const Text("Sách mượn: "),
+                      Text(dsSach),
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Row(
-                    children: const [
-                      Text("Tình trạng:"),
-                      Text("Chờ xác nhận"),
+                    children: [
+                      const Text("Tình trạng: "),
+                      Text(widget.itemOrder.trangThai),
                     ],
                   ),
                 ),
@@ -108,23 +129,31 @@ class OrderWidget extends StatelessWidget {
                       )
                   ),
                   const SizedBox(width: 10,),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: Row(
-                      children: const [
-                        Icon(Icons.check, color: Colors.green,),
-                        SizedBox(width: 5,),
-                        Text(
-                          "Xác nhận",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black,
-                          ),
-                        )
-                
-                      ],
-                    )
+                  InkWell(
+                    onTap: () async {
+                      bool status = await orderController.xacNhanDon(widget.itemOrder.idPm.toString());
+                      if(status){
+                        print("===========================> thanh cong");
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.check, color: Colors.green,),
+                          SizedBox(width: 5,),
+                          Text(
+                            "Xác nhận",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.black,
+                            ),
+                          )
+
+                        ],
+                      )
+                    ),
                   ),
                   const SizedBox(width: 10,),
                 ]

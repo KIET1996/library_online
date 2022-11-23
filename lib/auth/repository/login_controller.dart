@@ -11,9 +11,9 @@ class LoginController extends GetxController {
 
   Future<bool> loginUser({required String username, required String password}) async {
     try{
-      var request = http.Request('POST', Uri.parse(ApiPath.API_BASE + 'login?username=$username&password=$password'));
+
+      var request = http.Request('POST', Uri.parse( ApiPath.API_BASE + "login?username=$username&password=$password"));
       http.StreamedResponse response = await request.send();
-      print("Dang nhap: ${response.statusCode}");
       if (response.statusCode == 200) {
         var data = await response.stream.bytesToString();
         var rs = json.decode(data);
@@ -23,15 +23,15 @@ class LoginController extends GetxController {
         return false;    
       }
       else {
+        print("=========================> Dang nhap: 22y7");
         if (kDebugMode) {
           print(response.reasonPhrase);
         }
         return false;
       }
     } catch(e){
+      print("=========================> Dang nhap: 2 $e");
       return false;
     }
   }
-
-  
 }
