@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:library_online/widgets/order_widget.dart';
+import 'package:library_online/widgets/receive_widget.dart';
 
 class ReceiveOrderPage extends StatefulWidget {
   const ReceiveOrderPage({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _ReceiveOrderPageState extends State<ReceiveOrderPage> {
           itemCount: 5,
           itemBuilder: (context, index){
             return Container();
-            // return OrderWidget(isSuccess: isSuccess);
+            // return ReceiveWidget(isSuccess: isSuccess);
           }
       ),
     );

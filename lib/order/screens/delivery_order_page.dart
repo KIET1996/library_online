@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_online/order/model/item_model.dart';
 import 'package:library_online/order/repositories/order_controller.dart';
-import 'package:library_online/widgets/order_widget.dart';
+import 'package:library_online/widgets/delivery_widget.dart';
 
 class DeliveryOrderPage extends StatefulWidget {
   const DeliveryOrderPage({Key? key}) : super(key: key);
@@ -46,7 +46,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
       child: ListView.builder(
           itemCount: listItem.length,
           itemBuilder: (context, index){
-            return OrderWidget(isSuccess: isSuccess, itemOrder: listItem[index],);
+            return DeliveryWidget(isSuccess: isSuccess, itemOrder: listItem[index],);
           }
       ),
     );

@@ -4,9 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:library_online/constants/theme_custom.dart';
 import 'package:library_online/order/model/item_model.dart';
 import 'package:library_online/order/repositories/order_controller.dart';
+import 'package:library_online/widgets/message_popup.dart';
 
-class OrderWidget extends StatefulWidget {
-  const OrderWidget({
+class DeliveryWidget extends StatefulWidget {
+  const DeliveryWidget({
     Key? key,
     required this.isSuccess, required this.itemOrder,
   }) : super(key: key);
@@ -15,10 +16,10 @@ class OrderWidget extends StatefulWidget {
   final ItemModel itemOrder; 
 
   @override
-  State<OrderWidget> createState() => _OrderWidgetState();
+  State<DeliveryWidget> createState() => _DeliveryWidgetState();
 }
 
-class _OrderWidgetState extends State<OrderWidget> {
+class _DeliveryWidgetState extends State<DeliveryWidget> {
   OrderController orderController = OrderController();
   String strDate = '';
   String dsSach = '';
@@ -111,29 +112,41 @@ class _OrderWidgetState extends State<OrderWidget> {
             Row(
                 children:[
                   Expanded(child: Container()),
-                  Container(
-                      padding: const EdgeInsets.all(8),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.clear, color: Colors.red,),
-                          SizedBox(width: 5,),
-                          Text(
-                            "Từ chối",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      )
+                  InkWell(
+                    onTap:()async{
+                      bool status = await orderController.tuChoiDon(widget.itemOrder.idPm.toString(), "Tu choi");
+                      if(status){
+                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Từ chối thành công"));     
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Từ chối không thành công"));
+                      }
+                    },
+                    child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.clear, color: Colors.red,),
+                            SizedBox(width: 5,),
+                            Text(
+                              "Từ chối",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black,
+                              ),
+                            )
+                          ],
+                        )
+                    ),
                   ),
                   const SizedBox(width: 10,),
                   InkWell(
                     onTap: () async {
                       bool status = await orderController.xacNhanDon(widget.itemOrder.idPm.toString());
                       if(status){
-                        print("===========================> thanh cong");
+                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận thành công"));     
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận không thành công"));
                       }
                     },
                     child: Container(
