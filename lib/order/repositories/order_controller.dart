@@ -64,7 +64,10 @@ class OrderController extends GetxController {
 
   tuChoiDon (String id, String message) async {
     try{
-      var request = http.Request('PUT', Uri.parse(ApiPath.API_BASE + 'xacnhan/$id'));
+      var request = http.Request('PUT', Uri.parse(ApiPath.API_BASE + 'huybo/$id'));
+      request.bodyFields = {
+        'lyDo': message
+      };
       http.StreamedResponse response = await request.send();
       print("Xac nhan don dat status : ${response.statusCode}");
 

@@ -46,7 +46,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
       child: ListView.builder(
           itemCount: listItem.length,
           itemBuilder: (context, index){
-            return DeliveryWidget(isSuccess: isSuccess, itemOrder: listItem[index],);
+            return DeliveryWidget(isSuccess: isSuccess, itemOrder: listItem[index], refreshDS: ()=> layDSDonDat(),);
           }
       ),
     );

@@ -9,11 +9,12 @@ import 'package:library_online/widgets/message_popup.dart';
 class DeliveryWidget extends StatefulWidget {
   const DeliveryWidget({
     Key? key,
-    required this.isSuccess, required this.itemOrder,
+    required this.isSuccess, required this.itemOrder, required this.refreshDS
   }) : super(key: key);
 
   final bool isSuccess;
-  final ItemModel itemOrder; 
+  final ItemModel itemOrder;
+  final Function() refreshDS;
 
   @override
   State<DeliveryWidget> createState() => _DeliveryWidgetState();
@@ -21,12 +22,40 @@ class DeliveryWidget extends StatefulWidget {
 
 class _DeliveryWidgetState extends State<DeliveryWidget> {
   OrderController orderController = OrderController();
+  TextEditingController lydoController = TextEditingController();
   String strDate = '';
   String dsSach = '';
 
+  typeOrder(String s) {
+    switch (s) {
+      case "dalaysach":
+        return "Đã giao";
+      case "choxacnhan":
+        return "Xác nhận";
+      case "daxacnhan":
+        return "Lấy sách";
+      default:
+        return "Xác nhận";
+    }
+  }
+
+  typeCancle(String s) {
+    switch (s) {
+      case "dalaysach":
+        return "Hủy";
+      case "choxacnhan":
+        return "Từ chối";
+      case "daxacnhan":
+        return "Hủy";
+      default:
+        return "Từ chối";
+    }
+  }
+
+
   @override
   void initState() {
-    strDate = DateFormat("dd/MM/yyyy hh:mm").format(widget.itemOrder.ngayMuon);
+    strDate = DateFormat("dd/MM/yyyy").format(widget.itemOrder.ngayMuon);
     for (var x in widget.itemOrder.sach){
       dsSach = dsSach + x + ",";
     }
@@ -61,60 +90,134 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                 ]
               ),
             ),
-            ExpansionTile(
-              title: Text(
-                strDate + ": " + widget.itemOrder.diaChi,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      strDate + ": " + widget.itemOrder.diaChi,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children:  [
+                  Text(widget.itemOrder.docGia),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  const Text("SĐT: "),
+                  Text(widget.itemOrder.sDt),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  const Text("Sách mượn: "),
+                  Text(dsSach),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  const Text("Tình trạng: "),
+                  Text(widget.itemOrder.trangThai),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: lydoController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Lý do',
+                    isDense: true
                 ),
               ),
-              tilePadding: const EdgeInsets.all(8),
-              trailing: const SizedBox(),
-              children:[
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Row(
-                    children:  [
-                      Text(widget.itemOrder.docGia),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Row(
-                    children: [
-                      const Text("SĐT: "),
-                      Text(widget.itemOrder.sDt),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Row(
-                    children: [
-                      const Text("Sách mượn: "),
-                      Text(dsSach),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Row(
-                    children: [
-                      const Text("Tình trạng: "),
-                      Text(widget.itemOrder.trangThai),
-                    ],
-                  ),
-                ),
-              ],
             ),
+            // ExpansionTile(
+            //   title: Text(
+            //     strDate + ": " + widget.itemOrder.diaChi,
+            //     style: const TextStyle(
+            //         color: Colors.black,
+            //         fontSize: 18
+            //     ),
+            //   ),
+            //   tilePadding: const EdgeInsets.all(8),
+            //   trailing: const SizedBox(),
+            //   children:[
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 8.0),
+            //       child: Row(
+            //         children:  [
+            //           Text(widget.itemOrder.docGia),
+            //         ],
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 8.0),
+            //       child: Row(
+            //         children: [
+            //           const Text("SĐT: "),
+            //           Text(widget.itemOrder.sDt),
+            //         ],
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 8.0),
+            //       child: Row(
+            //         children: [
+            //           const Text("Sách mượn: "),
+            //           Text(dsSach),
+            //         ],
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 8.0),
+            //       child: Row(
+            //         children: [
+            //           const Text("Tình trạng: "),
+            //           Text(widget.itemOrder.trangThai),
+            //         ],
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: TextField(
+            //         controller: lydoController,
+            //         decoration: const InputDecoration(
+            //           border: OutlineInputBorder(),
+            //           labelText: 'Lý do',
+            //           isDense: true
+            //         ),
+            //       ),
+            //     )
+            //   ],
+            // ),
             Row(
                 children:[
                   Expanded(child: Container()),
                   InkWell(
                     onTap:()async{
-                      bool status = await orderController.tuChoiDon(widget.itemOrder.idPm.toString(), "Tu choi");
+                      bool status = await orderController.tuChoiDon(widget.itemOrder.idPm.toString(), lydoController.text.trim());
+                      lydoController.text = "";
                       if(status){
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Từ chối thành công"));     
                       } else {
@@ -124,12 +227,12 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                     child: Container(
                         padding: const EdgeInsets.all(8),
                         child: Row(
-                          children: const [
-                            Icon(Icons.clear, color: Colors.red,),
-                            SizedBox(width: 5,),
+                          children: [
+                            const Icon(Icons.clear, color: Colors.red,),
+                            const SizedBox(width: 5,),
                             Text(
-                              "Từ chối",
-                              style: TextStyle(
+                              typeCancle(widget.itemOrder.status),
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.black,
@@ -144,7 +247,8 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                     onTap: () async {
                       bool status = await orderController.xacNhanDon(widget.itemOrder.idPm.toString());
                       if(status){
-                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận thành công"));     
+                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận thành công"));
+                        () => widget.refreshDS();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận không thành công"));
                       }
@@ -152,12 +256,12 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       child: Row(
-                        children: const [
-                          Icon(Icons.check, color: Colors.green,),
-                          SizedBox(width: 5,),
+                        children: [
+                          const Icon(Icons.check, color: Colors.green,),
+                          const SizedBox(width: 5,),
                           Text(
-                            "Xác nhận",
-                            style: TextStyle(
+                            typeOrder(widget.itemOrder.status),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
                               color: Colors.black,

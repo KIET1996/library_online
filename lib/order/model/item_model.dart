@@ -15,6 +15,7 @@ class ItemModel {
         required this.tinhTrang,
         required this.trangThai,
         required this.sach,
+        required this.status,
     });
 
     int idPm;
@@ -26,6 +27,7 @@ class ItemModel {
     String tinhTrang;
     String trangThai;
     List<String> sach;
+    String status;
 
     factory ItemModel.fromJson(Map<String, dynamic> json) => ItemModel(
         idPm: json["idPM"],
@@ -37,6 +39,7 @@ class ItemModel {
         tinhTrang: json["tinhTrang"],
         trangThai: json["trangThai"],
         sach: List<String>.from(json["sach"].map((x) => x)),
+        status: json["status"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -49,6 +52,7 @@ class ItemModel {
         "tinhTrang": tinhTrang,
         "trangThai": trangThai,
         "sach": List<dynamic>.from(sach.map((x) => x)),
+        "status": status
     };
 }
 

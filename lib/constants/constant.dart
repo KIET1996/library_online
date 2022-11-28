@@ -7,5 +7,5 @@ class AppConstants extends GetxController {
 }
 
 class ApiPath {
-  static const String API_BASE = 'http://192.168.1.8:80/api/';
+  static const String API_BASE = 'http://192.168.1.12:80/api/';
 }
