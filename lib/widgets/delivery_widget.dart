@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:library_online/constants/theme_custom.dart';
-import 'package:library_online/order/model/item_model.dart';
+import 'package:library_online/order/model/delivery_model.dart';
 import 'package:library_online/order/repositories/order_controller.dart';
 import 'package:library_online/widgets/message_popup.dart';
 
 class DeliveryWidget extends StatefulWidget {
   const DeliveryWidget({
-    Key? key,
-    required this.isSuccess, required this.itemOrder, required this.refreshDS
+    Key? key, required this.itemOrder, required this.refreshDS
   }) : super(key: key);
 
-  final bool isSuccess;
-  final ItemModel itemOrder;
-  final Function() refreshDS;
+  final DeliveryModel itemOrder;
+  final VoidCallback refreshDS;
 
   @override
   State<DeliveryWidget> createState() => _DeliveryWidgetState();
@@ -126,9 +124,10 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text("Sách mượn: "),
-                  Text(dsSach),
+                  Expanded(child: Text(dsSach)),
                 ],
               ),
             ),
@@ -219,7 +218,8 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                       bool status = await orderController.tuChoiDon(widget.itemOrder.idPm.toString(), lydoController.text.trim());
                       lydoController.text = "";
                       if(status){
-                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Từ chối thành công"));     
+                        ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Từ chối thành công"));
+                        widget.refreshDS();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Từ chối không thành công"));
                       }
@@ -248,7 +248,7 @@ class _DeliveryWidgetState extends State<DeliveryWidget> {
                       bool status = await orderController.xacNhanDon(widget.itemOrder.idPm.toString());
                       if(status){
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận thành công"));
-                        () => widget.refreshDS();
+                        widget.refreshDS();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận không thành công"));
                       }

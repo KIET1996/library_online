@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-HistoryOrderModel historyOrderModelFromJson(String str) => HistoryOrderModel.fromJson(json.decode(str));
+HistoryDeliveryModel historyDeliveryModelFromJson(String str) => HistoryDeliveryModel.fromJson(json.decode(str));
 
-String historyOrderModelToJson(HistoryOrderModel data) => json.encode(data.toJson());
+String historyDeliveryModelToJson(HistoryDeliveryModel data) => json.encode(data.toJson());
 
-class HistoryOrderModel {
-  HistoryOrderModel({
+class HistoryDeliveryModel {
+  HistoryDeliveryModel({
     required this.idPm,
     required this.ngayMuon,
     required this.diaChi,
@@ -27,7 +27,7 @@ class HistoryOrderModel {
   String lyDo;
   List<String> sach;
 
-  factory HistoryOrderModel.fromJson(Map<String, dynamic> json) => HistoryOrderModel(
+  factory HistoryDeliveryModel.fromJson(Map<String, dynamic> json) => HistoryDeliveryModel(
     idPm: json["idPM"],
     ngayMuon: DateTime.parse(json["ngayMuon"]),
     diaChi: json["diaChi"],

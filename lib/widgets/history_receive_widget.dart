@@ -2,34 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:library_online/constants/theme_custom.dart';
-import 'package:library_online/history/model/history_delivery_model.dart';
-import 'package:library_online/order/model/delivery_model.dart';
+import 'package:library_online/history/model/history_receive_model.dart';
 
-class HistoryDeliveryWidget extends StatefulWidget {
-  const HistoryDeliveryWidget({
+class HistoryReceiveWidget extends StatefulWidget {
+  const HistoryReceiveWidget({
     Key? key,
     required this.itemHistory,
   }) : super(key: key);
-  final HistoryDeliveryModel itemHistory;
+  final HistoryReceiveModel itemHistory;
 
   @override
-  State<HistoryDeliveryWidget> createState() => _HistoryDeliveryWidgetState();
+  State<HistoryReceiveWidget> createState() => _HistoryReceiveWidgetState();
 }
 
-class _HistoryDeliveryWidgetState extends State<HistoryDeliveryWidget> {
+class _HistoryReceiveWidgetState extends State<HistoryReceiveWidget> {
   String strDate = '';
   String dsSach = '';
 
   @override
   void initState() {
-    strDate = DateFormat("dd/MM/yyyy").format(widget.itemHistory.ngayMuon);
+    strDate = DateFormat("dd/MM/yyyy").format(widget.itemHistory.ngayTra);
     if(widget.itemHistory.sach.isNotEmpty){
       for (var x in widget.itemHistory.sach){
         if(x.isNotEmpty){
           dsSach = dsSach + x + ",";
         }
       }
-}
+    }
     super.initState();
   }
 
@@ -49,11 +48,11 @@ class _HistoryDeliveryWidgetState extends State<HistoryDeliveryWidget> {
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
-                  strDate + ": " + widget.itemHistory.diaChi,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18
-                  ),
+                strDate + ": " + widget.itemHistory.diaChi,
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18
+                ),
               ),
             ),
             Padding(
@@ -163,8 +162,8 @@ class _HistoryDeliveryWidgetState extends State<HistoryDeliveryWidget> {
                         : const Text(
                       "Thành công",
                       style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.green
+                          fontWeight: FontWeight.w700,
+                          color: Colors.green
                       ),
                     ),
                   ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:library_online/order/model/item_model.dart';
+import 'package:library_online/order/model/delivery_model.dart';
 import 'package:library_online/order/repositories/order_controller.dart';
 import 'package:library_online/widgets/delivery_widget.dart';
 
@@ -14,7 +14,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
   OrderController orderController = OrderController();
   bool isSuccess = true;
   bool isLoading = false;
-  List<ItemModel> listItem = [];
+  List<DeliveryModel> listItem = [];
 
   layDSDonDat() async {
     setState(() {
@@ -35,6 +35,12 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
     super.initState();
   }
 
+  refreshData() async {
+    await layDSDonDat();
+    // await Future.delayed(const Duration(seconds: 2), () {});
+    print("===========================> dat ======> $listItem");
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading 
@@ -46,7 +52,7 @@ class _DeliveryOrderPageState extends State<DeliveryOrderPage> {
       child: ListView.builder(
           itemCount: listItem.length,
           itemBuilder: (context, index){
-            return DeliveryWidget(isSuccess: isSuccess, itemOrder: listItem[index], refreshDS: ()=> layDSDonDat(),);
+            return DeliveryWidget(itemOrder: listItem[index], refreshDS: refreshData,);
           }
       ),
     );

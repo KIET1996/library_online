@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-ItemModel itemModelFromJson(String str) => ItemModel.fromJson(json.decode(str));
+DeliveryModel deliveryModelFromJson(String str) => DeliveryModel.fromJson(json.decode(str));
 
-String itemModelToJson(ItemModel data) => json.encode(data.toJson());
+String deliveryModelToJson(DeliveryModel data) => json.encode(data.toJson());
 
-class ItemModel {
-    ItemModel({
+class DeliveryModel {
+    DeliveryModel({
         required this.idPm,
         required this.ngayMuon,
         required this.diaChi,
@@ -29,7 +29,7 @@ class ItemModel {
     List<String> sach;
     String status;
 
-    factory ItemModel.fromJson(Map<String, dynamic> json) => ItemModel(
+    factory DeliveryModel.fromJson(Map<String, dynamic> json) => DeliveryModel(
         idPm: json["idPM"],
         ngayMuon: DateTime.parse(json["ngayMuon"]),
         diaChi: json["diaChi"],

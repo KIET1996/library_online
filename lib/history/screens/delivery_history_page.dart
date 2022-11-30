@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:library_online/history/model/history_order_model.dart';
+import 'package:library_online/history/model/history_delivery_model.dart';
 import 'package:library_online/history/repository/history_controller.dart';
-import 'package:library_online/order/model/item_model.dart';
+import 'package:library_online/order/model/delivery_model.dart';
 import 'package:library_online/widgets/history_delivery_widget.dart';
 
 class DeliveryHistoryPage extends StatefulWidget {
@@ -15,14 +15,13 @@ class _DeliveryHistoryPageState extends State<DeliveryHistoryPage> {
   HistoryController historyController = HistoryController();
   bool isSuccess = true;
   bool isLoading = false;
-  List<HistoryOrderModel> listItem = [];
+  List<HistoryDeliveryModel> listItem = [];
 
   layLSDonDat() async {
     setState(() {
       isLoading = true;
     });
     var temp = await historyController.layLichSuDonDat();
-    print("================================================================> $temp");
     setState(() {
       isLoading = false;
       if (temp.isNotEmpty){
