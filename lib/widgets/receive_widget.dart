@@ -4,16 +4,17 @@ import 'package:intl/intl.dart';
 import 'package:library_online/constants/theme_custom.dart';
 import 'package:library_online/order/model/receive_model.dart';
 import 'package:library_online/order/repositories/order_controller.dart';
+import 'package:library_online/order/screens/receive_order_page.dart';
 import 'package:library_online/widgets/message_popup.dart';
 
 class ReceiveWidget extends StatefulWidget {
   const ReceiveWidget({
     Key? key,
-   required this.itemOrder, required this.refreshDS,
+   required this.itemOrder, required this.refreshDSR,
   }) : super(key: key);
 
   final ReceiveModel itemOrder;
-  final VoidCallback refreshDS;
+  final VoidCallback refreshDSR;
 
   @override
   State<ReceiveWidget> createState() => _ReceiveWidgetState();
@@ -208,7 +209,7 @@ class _ReceiveWidgetState extends State<ReceiveWidget> {
                       bool status = await orderController.tuChoiDonTra(widget.itemOrder.idPt.toString(), ghichuController.text.trim());
                       ghichuController.text = "";
                       if(status){
-                        widget.refreshDS;
+                        widget.refreshDSR();
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Từ chối thành công"));
 
                       } else {
@@ -238,8 +239,7 @@ class _ReceiveWidgetState extends State<ReceiveWidget> {
                     onTap: () async {
                       bool status = await orderController.xacNhanDonTra(widget.itemOrder.idPt.toString());
                       if(status){
-                        print("====================>");
-                        widget.refreshDS;
+                        widget.refreshDSR();
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận thành công"));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(CustomSnackAlert.showSnackBar("Xác nhận không thành công"));

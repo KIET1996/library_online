@@ -29,27 +29,32 @@ class _ReceiveOrderPageState extends State<ReceiveOrderPage> {
     });
   }
 
+  refreshDataR() async{
+    await layDSDonTra();
+    // await Future.delayed(const Duration(seconds: 2), () {});
+    print("===========================>tra =========> $listItem");
+  }
+
   @override
   void initState() {
     layDSDonTra();
     super.initState();
   }
 
-  refreshData() async {
-    await layDSDonTra();
-    await Future.delayed(const Duration(seconds: 2), () {});
-    print("===========================>tra =========> $listItem");
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return isLoading
+    ? const Center(
+      child: CircularProgressIndicator(color: Colors.black,),
+    )
+    : Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
           itemCount: listItem.length,
           itemBuilder: (context, index){
-            // return Container();
-            return ReceiveWidget(itemOrder: listItem[index], refreshDS: refreshData,);
+            return ReceiveWidget(itemOrder: listItem[index], refreshDSR: refreshDataR,);
           }
       ),
     );
